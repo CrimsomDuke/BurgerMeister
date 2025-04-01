@@ -1,0 +1,8 @@
+
+
+JS export are fucking terrible. So I gotta be careful when exporting this from module
+to module if I want to avoid exceptions related to undefined values when 
+using exported/imported values
+
+The best thing to do for now is to follow the sequence of export/import (from up to the bottom)
+and keep track of every step 

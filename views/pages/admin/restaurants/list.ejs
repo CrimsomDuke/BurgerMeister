@@ -1,3 +1,27 @@
 <%- include('../../../shared/_header.ejs') %>
     <h1 class="p-3"><%= title %></h1>
+    <main class="container d-flex justify-content-center h-100">
+        <table class="table border-2 border-black rounded m-3">
+            <thead>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Detalle</th>
+            </thead>
+            <tbody>
+                <% restaurants.forEach((restaurant) => { %>
+                    <tr>
+                        <td class="w-25">
+                            <img class="w-50" src="https://placehold.co/600x400" />
+                        </td>
+                        <td class="align-content-center">
+                            <%= restaurant.name %>
+                        </td>
+                        <td>
+                            <a href="edit/<%- restaurant.id %>">Editar</a>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
 <%- include('../../../shared/footer.ejs') %>

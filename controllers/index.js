@@ -1,4 +1,5 @@
 
-module.exports = (mainRouter, adminRouter, db) => {
-    require('./restaurant.controller')(mainRouter, adminRouter, db);
+module.exports = () => {
+    require('./restaurant.controller');
+    require('./burgers.controller');
 }

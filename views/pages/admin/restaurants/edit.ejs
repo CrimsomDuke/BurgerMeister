@@ -1,5 +1,5 @@
 <%- include('../../../shared/_header.ejs') %>
-    <main class="container d-flex justify-content-center h-100">
+    <main class="container d-flex justify-content-center h-100 flex-column">
         <div class="card w-75 m-3">
             <h1 class="p-3"><%= title %></h1>
             <form method="post" class="p-3" enctype="multipart/form-data">
@@ -26,8 +26,39 @@
                     </button>
                 </div>
             </form>
-
-
+        </div>
+        <div class="card w-75 m-3 p-3">
+            <div class="options-section m-2">
+                <a class="btn btn-primary" href="/burgers/create">Crear hamburguesa</a>
+            </div>
+            <div class="container d-flex justify-content-center h-100">
+                <table class="table border-2 border-black rounded m-3">
+                    <thead>
+                        <th>Imagen</th>
+                        <th>Nombre</th>
+                        <th>Editar</th>
+                    </thead>
+                    <tbody>
+                        <% burgers.forEach((burger) => { %>
+                            <tr>
+                                <td class="w-25">
+                                    <% if(restaurant.logo != 'https://placehold.co/600x400') { %>
+                                        <img class="w-50" src="/images/burgers/<%= burger.image %>" alt="logo"/>
+                                    <% }else{ %>
+                                        <img class="w-50" src="<%= burger.image %>" alt="logo"/>
+                                    <% } %>
+                                </td>
+                                <td class="align-center">
+                                    <%= restaurant.name %>
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" href="burgers/edit/<%- burger.id %>">Editar</a>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 <%- include('../../../shared/footer.ejs') %>

@@ -2,7 +2,6 @@
 
 const db = require('../models/')
 const path = require('path');
-const restaurant = require('../models/restaurant');
 
 exports.renderRestaurantsAdmin = async (req, res) => {
     const restaurants = await db.Restaurants.findAll();
@@ -31,7 +30,8 @@ exports.renderEditRestaurantAdmin = async (req, res) => {
 
     res.render("pages/admin/restaurants/edit.ejs", {
         title : "Editar Restaurante",
-        restaurant : restaurant
+        restaurant : restaurant,
+        burgers : burgers
     })
 
 }
@@ -84,7 +84,7 @@ exports.updateRestaurantAdmin = async (req, res) => {
     let theRestaurant;
     if(!logo){
         theRestaurant = await db.Restaurants.update({
-            name : name.name,
+            name : name,
         }, { where : { id : id }})
 
         console.log(theRestaurant)

@@ -1,2 +1,2 @@
 
-SELECT * FROM Restaurants
+SELECT * FROM "Restaurants"

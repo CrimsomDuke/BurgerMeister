@@ -11,13 +11,17 @@
                 <% restaurants.forEach((restaurant) => { %>
                     <tr>
                         <td class="w-25">
-                            <img class="w-50" src="https://placehold.co/600x400" />
+                            <% if(restaurant.logo != 'https://placehold.co/600x400') { %>
+                                <img class="w-50" src="/images/restaurants/<%= restaurant.logo %>" alt="logo"/>
+                            <% }else{ %>
+                                <img class="w-50" src="<%= restaurant.logo %>" alt="logo"/>
+                            <% } %>
                         </td>
-                        <td class="align-content-center">
+                        <td class="align-center">
                             <%= restaurant.name %>
                         </td>
                         <td>
-                            <a href="edit/<%- restaurant.id %>">Editar</a>
+                            <a class="btn btn-primary" href="restaurants/edit/<%- restaurant.id %>">Editar</a>
                         </td>
                     </tr>
                 <% }); %>

@@ -36,4 +36,6 @@ sequelize.sync();
 module.exports = {
     Restaurants,
     Burgers,
+    sequelize,
+    Sequelize : sequelize.Sequelize
 }

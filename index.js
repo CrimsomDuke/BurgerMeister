@@ -1,6 +1,7 @@
 
 const express = require('express');
 const bodyParser = require("body-parser");
+const fileUpload = require('express-fileupload');
 
 const app = express();
 const port = 3000;
@@ -9,24 +10,26 @@ const db = require('./models/')
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// eslint-disable-next-line no-undef
-app.use("/css", express.static(__dirname + "/css"));
-// eslint-disable-next-line no-undef
-app.use("/js", express.static(__dirname + "/js"));
+app.use(express.static('public'));
 
-app.get("/ping", (req, res) => {
-    res.send("pong");
+app.use(fileUpload({
+  limits: { fileSize: 50 * 1024 * 1024 },
+}));
+
+db.sequelize.sync({
+
+}).then(() => {
+    console.log("Database ready");
 })
 
 //routers
 const mainRouter = express.Router();
 const adminRouter = express.Router();
 
+require("./routes")(app, adminRouter, mainRouter);
+
 app.use("/", mainRouter);
 app.use("/admin", adminRouter);
-
-require("./controllers")(mainRouter, adminRouter, db);
-
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

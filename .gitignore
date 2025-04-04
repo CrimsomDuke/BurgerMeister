@@ -1,1 +1,5 @@
 /node_modules
+
+/public/images/restaurants/*.jpg
+/public/images/burgers/*.jpg
+/public/images/burgers/*.png

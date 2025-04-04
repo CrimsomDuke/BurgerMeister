@@ -10,9 +10,6 @@
                 </div>
                 <div class="form-group m-2">
                     <label for="logo">Logo del restaurante:</label>
-                    <div class="container p-3">
-                        <img src="/images/restaurants/<%= restaurant.logo %>" alt="logo" class="logo-image w-75" />
-                    </div>
                     <input class="form-control" type="file" id="logo" name="logo"> 
                 </div>
                 <input type="hidden" name="id" id="id" val="<%= restaurant.id %>"/>
@@ -29,7 +26,7 @@
         </div>
         <div class="card w-75 m-3 p-3">
             <div class="options-section m-2">
-                <a class="btn btn-primary" href="/burgers/create">Crear hamburguesa</a>
+                <a class="btn btn-primary" href="/admin/burgers/create?restaurantId=<%= restaurant.id %>">Crear hamburguesa</a>
             </div>
             <div class="container d-flex justify-content-center h-100">
                 <table class="table border-2 border-black rounded m-3">
@@ -49,10 +46,10 @@
                                     <% } %>
                                 </td>
                                 <td class="align-center">
-                                    <%= restaurant.name %>
+                                    <%= burger.name %>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="burgers/edit/<%- burger.id %>">Editar</a>
+                                    <a class="btn btn-primary" href="/admin/burgers/edit/<%- burger.id %>">Editar</a>
                                 </td>
                             </tr>
                         <% }); %>

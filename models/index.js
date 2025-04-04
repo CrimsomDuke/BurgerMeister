@@ -31,11 +31,17 @@ Reviews.belongsTo(Burgers, {
     as : "burger"
 })
 
-sequelize.sync();
+sequelize.sync({ alter : true })
+    .then( () => {
+        console.log("DB Sync")
+    }).catch( (err) => {
+        console.log("Db could not sync", err)
+    })
 
 module.exports = {
     Restaurants,
     Burgers,
+    Reviews,
     sequelize,
     Sequelize : sequelize.Sequelize
 }

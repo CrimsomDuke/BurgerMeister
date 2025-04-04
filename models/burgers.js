@@ -27,10 +27,7 @@ module.exports = function(sequelize) {
         },
         image : {
             type : DataTypes.STRING,
-            allowNull : false,
-            validate : {
-                isUrl : true
-            }
+            allowNull : false
         },
         restaurantId : {
             type : DataTypes.INTEGER,

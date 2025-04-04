@@ -5,23 +5,27 @@
             <form method="post" class="p-3" enctype="multipart/form-data">
                 <div class="form-group m-2">
                     <label for="name">Nombre de la hamburguesa:</label>
-                    <input class="form-control" type="text" id="name" name="name" minlength="6" required>
+                    <input class="form-control" type="text" id="name" name="name" minlength="6" value="<%= burger.name %>" required>
                 </div>
                 <div class="form-group m-2">
                     <label for="image">Foto de la hamburgruesa:</label>
-                    <input class="form-control" type="file" id="image" name="image" required> 
+                    <div class="container p-3">
+                        <img src="/images/burgers/<%= burger.image %>" alt="logo" class="logo-image w-75" />
+                    </div>
+                    <input class="form-control" type="file" id="image" name="image"> 
                 </div>
                 <div class="form-group m-2">
                     <label for="description">Descripcion de la hamburgruesa:</label>
                     <textarea class="form-control" name="description" id="description" minlength="10"
-                        placeholder="Ingresa una description para la hamburguesa" rows="6" required></textarea> 
+                        placeholder="Ingresa una description para la hamburguesa" rows="6" required><%= burger.description %></textarea> 
                 </div>
                 <div class="form-group m-2">
                     <label for="price">Precio: </label>
-                    <input class="form-control" type="number" id="price" name="price" min="0" value="0" required> 
+                    <input class="form-control" type="number" id="price" name="price" min="0"
+                        value="<%= burger.price %>" required> 
                 </div>
-                <input type="hidden" name="restaurantId" id="restaurantId"
-                    value="<%= restaurantId %>" />
+                <input type="hidden" name="restaurantId" id="restaurantId" value="<%= burger.restaurantId %>" />
+                <input type="hidden" name="id" id="id" value="<%= burger.id %>" />
                 <div class="m-2 d-flex justify-content-between w-100">
                     <button class="btn btn-success" type="submit">
                         Guardar

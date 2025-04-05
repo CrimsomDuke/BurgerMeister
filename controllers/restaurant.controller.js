@@ -36,6 +36,14 @@ exports.renderEditRestaurantAdmin = async (req, res) => {
 
 }
 
+exports.renderRestaurantsMain = async (req, res) => {
+    const restaurants = await db.Restaurants.findAll();
+    res.render("pages/main/restaurants/main.ejs", {
+        title : "Bienvenido a BurgerMeister Page",
+        restaurants : restaurants
+    })
+}
+
 exports.createRestaurantAdmin = async (req, res) => {
     const name = req.body.name;
     let theRestaurant = await db.Restaurants.create({

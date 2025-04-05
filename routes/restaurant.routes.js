@@ -7,4 +7,6 @@ module.exports = (app, adminRouter, mainRouter) => {
     adminRouter.post('/restaurants/create', controller.createRestaurantAdmin)
     adminRouter.get('/restaurants/edit/:id', controller.renderEditRestaurantAdmin)
     adminRouter.post('/restaurants/edit/:id', controller.updateRestaurantAdmin)
+
+    mainRouter.get('/', controller.renderRestaurantsMain);
 }

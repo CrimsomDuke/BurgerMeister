@@ -12,16 +12,16 @@
                     <tr>
                         <td class="w-25">
                             <% if(restaurant.logo != 'https://placehold.co/600x400') { %>
-                                <img class="w-50" src="/images/restaurants/<%= restaurant.logo %>" alt="logo"/>
+                                <img class="w-50 logo-image-small" src="/images/restaurants/<%= restaurant.logo %>" alt="logo"/>
                             <% }else{ %>
-                                <img class="w-50" src="<%= restaurant.logo %>" alt="logo"/>
+                                <img class="w-50 logo-image-small" src="<%= restaurant.logo %>" alt="logo"/>
                             <% } %>
                         </td>
                         <td class="align-center">
                             <%= restaurant.name %>
                         </td>
                         <td>
-                            <a class="btn btn-primary" href="restaurants/edit/<%- restaurant.id %>">Editar</a>
+                            <a class="btn btn-primary" href="/admin/restaurants/edit/<%- restaurant.id %>">Editar</a>
                         </td>
                     </tr>
                 <% }); %>

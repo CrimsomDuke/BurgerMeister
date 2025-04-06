@@ -34,6 +34,59 @@ exports.renderEditBurgerAdmin = async (req, res) => {
     })
 }
 
+exports.renderBurgerDetailsMain = async (req, res) => {
+    const id = req.params.id;
+    const theBurger = await db.Burgers.findByPk(id, {
+        include : {
+            model : db.Restaurants,
+            as : "restaurant"
+        }
+    });
+
+    if (!theBurger) {
+        console.log("No se encontró la burger");
+        res.redirect("/")
+        return;
+    }
+
+    const theReviews = await db.Reviews.findAll({ where : { burgerId : id }}) 
+    const averageRatingRS = await db.Reviews.sequelize.query(
+        `SELECT AVG(rating) as averageRating FROM "Reviews" WHERE "burgerId" = ${id}`, {
+            replacement : { burgerId : id },
+            type : db.Reviews.sequelize.QueryTypes.SELECT
+        });
+
+    let theAverageRating = parseFloat(averageRatingRS[0].averagerating).toFixed(1)
+
+    res.render("pages/main/burgers/burger_details.ejs", {
+        title : theBurger.name,
+        burger : theBurger,
+        reviews : theReviews,
+        averageRating : theAverageRating
+    })
+}
+
+exports.renderBurgerTopMain = async (req, res) => {
+    const burgers = await db.Burgers.sequelize.query(
+        `SELECT 
+            b.id, b.name, b.description, b.price, b.image, b."restaurantId",
+            AVG(r.rating) as "averageRating"
+         FROM "Burgers" b
+         LEFT JOIN "Reviews" r ON b.id = r."burgerId"
+         GROUP BY b.id, b.name, b.description, b.price, b.image, b."restaurantId"
+         ORDER BY "averageRating" DESC`, 
+        {
+          type: db.Burgers.sequelize.QueryTypes.SELECT
+        }
+        );
+
+    res.render('pages/main/burgers/burger_list.ejs', {
+        title : "Top Burgers",
+        burgers : burgers
+    })
+
+}
+
 exports.createBurgerAdmin = async (req, res) => {
     const { restaurantId, name, description, price } = req.body;
     let theBurger = await db.Burgers.create({
@@ -104,7 +157,7 @@ exports.UpdateBurgerAdmin = async (req, res) => {
             return;
         }
 
-        theImage = fileName;
+        let theImage = fileName;
         await db.Burgers.update({
             image : theImage,
         }, { where : { id : id }})

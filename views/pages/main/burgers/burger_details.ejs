@@ -1,0 +1,56 @@
+<%- include('../../../shared/_main_header.ejs') %>
+<main class="container">
+    <section class="container card">
+        <section class="info container m-3">
+            <h1 class="custom-text"><%= burger.name %></h1>
+            <h3 class="custom-text">Restaurant: <%= burger.restaurant.name %></h3>
+            <div class="container p-3">
+                <img src="/images/burgers/<%= burger.image %>" alt="logo" class="logo-image w-75" />
+            </div>
+            <h4 class="custom-text"><i><%= burger.description %></i></h4>
+            <h3 class="custom-text">Precio: <%= burger.price %>$</h3>
+            <h3 class="custom-text">
+                <strong>
+                    Promedio: <%= averageRating%><i class="text-black" style="font-size: 40px">&#8902</i>
+                </strong>
+            </h3>
+        </section>
+        <section class="container m-3">
+            <h3 class="custom-text fw-bold">Dinos tu opinion de la hamburgruesa</h3>
+            <form method="POST" action="/reviews/create">
+                <input type="hidden" name="burgerId" value="<%= burger.id %>">
+                <!-- Star Rating -->
+                <div class="mb-3">
+                  <label class="form-label custom-text">Califica esta hamburguesa:</label>
+                  <div class="star-rating">
+                    <% for (let i = 5; i >= 1; i--) { %>
+                        <!--6 - i for get the proper value given the render order is-->
+                      <input type="radio" id="star<%= i %>" name="rating" value="<%= 6-i %>" checked/>
+                      <label style="font-size: 30px;" for="star<%= i %>">&#8902;</label>
+                    <% } %>
+                  </div>
+                </div>
+            
+                <div class="mb-3">
+                  <label for="comment" class="form-label">Comentario</label>
+                  <textarea class="form-control" name="comment" id="comment" rows="3"
+                        maxlength="200" placeholder="Agrega un comentario sobre la hamburguesa" required></textarea>
+                </div>
+            
+                <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+              </form>
+        </section>
+        <section class="reviews-panel container m-3">
+            <h2 class="custom-text fw-bold">Calificaciones de la hamburgruesa</h2>
+            <% reviews.forEach((review) => { %>
+                <div class="review-container card p-3 m-2">
+                    <h4><strong>Calificación: <%= review.rating %><i class="text-black" style="font-size: 40px">&#8902</i></strong></h4>
+                    <p><q><i>
+                        <%= review.comment %>
+                    </i></q></p>
+                </div>
+            <% }) %>
+        </section>
+    </section>
+</main>
+<%- include('../../../shared/footer.ejs') %>

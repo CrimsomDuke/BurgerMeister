@@ -44,6 +44,26 @@ exports.renderRestaurantsMain = async (req, res) => {
     })
 }
 
+exports.renderRestaurantDetailsMain = async(req, res) => {
+    const id = req.params.id;
+    const theRestaurant = await db.Restaurants.findByPk(id, {
+        include : {
+            model : db.Burgers,
+            as : "burgers"
+        }
+    });
+
+    if (!theRestaurant) {
+        res.redirect("/")
+        return;
+    }
+
+    res.render("pages/main/restaurants/details.ejs", {
+        title : theRestaurant.name,
+        restaurant : theRestaurant,
+    })
+}
+
 exports.createRestaurantAdmin = async (req, res) => {
     const name = req.body.name;
     let theRestaurant = await db.Restaurants.create({

@@ -1,0 +1,23 @@
+<%- include('../../../shared/_main_header.ejs') %>
+<main class="container">
+    <section class="container card">
+        <div class="w-100">
+            <img src="/images/restaurants/<%= restaurant.logo %>" alt="Burger Week" class="img-fluid w-100 banner-image">
+        </div>
+        <section class="info container m-3">
+            <h1 class="custom-text"><%= restaurant.name %></h1>
+            <h3 class="custom-text">Dale un vistazo a nuestras hamburgruesas</h3>
+            <section class="container d-flex justify-content-center flex-wrap">
+                <% restaurant.burgers.forEach((burger) => { %>
+                    <a class="restaurant-container" href="/burgers/<%= burger.id %>">
+                        <div class="justify-content-center">
+                            <img src="/images/burgers/<%= burger.image %>" class="logo-image-medium image-fluid" />
+                            <h4 class="custom-text"><%= burger.name %></h4>
+                        </div>
+                    </a>
+                <% }) %>
+            </section>
+        </section>
+    </section>
+</main>
+<%- include('../../../shared/footer.ejs') %>

@@ -1,16 +1,29 @@
 <%- include('../../../shared/_main_header.ejs') %>
-<main class="container">
-    <section class="container w-100 p-2 m-2">
+<main class="container d-flex">
+    <section class="container w-100 p-2 m-2 card">
         <div class="w-100">
             <img src="/images/burger_week.jpg" alt="Burger Week" class="img-fluid w-100 banner-image">
         </div>
         <section class="container bg-secondary d-flex flex-column">
             <h1 class="text white-text align-items-center" style="font-family: 'Brush Script MT', cursive;"><%= title %></h>
-            <p style="font-family: 'Courier New', monospace">
+            <p class="custom-text">
                 BURGER WEEK es el evento que reúne a las mejores hamburgueserías de Santa Cruz,
                 las cuales preparan burgers únicas y exclusivas
                 que sólo están disponibles en los 13 días de evento.
             </p>
+        </section>
+        <section class="container d-flex flex-column">
+            <h2 class="custom-text">Los participantes de este año:</h2>
+            <div class="container d-flex flex-wrap justify-content-center">
+                <% restaurants.forEach((restaurant) => { %>
+                    <a class="restaurant-container" href="/restaurants/<%= restaurant.id %>">
+                        <div>
+                            <img src="/images/restaurants/<%= restaurant.logo %>" class="logo-image-medium image-fluid" />
+                            <h4 class="custom-text"><%= restaurant.name %></h4>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
         </section>
     </section>
 </main>

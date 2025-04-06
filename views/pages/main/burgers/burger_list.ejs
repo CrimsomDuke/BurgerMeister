@@ -1,0 +1,34 @@
+<%- include('../../../shared/_main_header.ejs') %>
+<div class="container d-flex justify-content-center h-100">
+    <table class="table border-2 border-black rounded m-3">
+        <thead>
+            <th>Top</th>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Editar</th>
+        </thead>
+        <tbody>
+            <% let index = 0 %>
+            <% burgers.forEach((burger) => { %>
+                <% index++ %>
+                <tr>
+                    <td><%=index%></td>
+                    <td class="w-25">
+                        <% if(burger.image != 'https://placehold.co/600x400') { %>
+                            <img class="w-50" src="/images/burgers/<%= burger.image %>" alt="logo"/>
+                        <% }else{ %>
+                            <img class="w-50" src="<%= burger.image %>" alt="logo"/>
+                        <% } %>
+                    </td>
+                    <td class="align-center">
+                        <%= burger.name %>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/burgers/<%- burger.id %>">Detalles</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<%- include('../../../shared/footer.ejs') %>

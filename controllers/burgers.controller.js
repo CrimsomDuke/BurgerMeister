@@ -22,6 +22,12 @@ exports.renderEditBurgerAdmin = async (req, res) => {
         return;
     }
     const burger = await db.Burgers.findByPk(id);
+    const averageRatingRS = await db.Reviews.sequelize.query(
+        `SELECT AVG(rating) as averageRating FROM "Reviews" WHERE "burgerId" = ${id}`, {
+            replacement : { burgerId : id },
+            type : db.Reviews.sequelize.QueryTypes.SELECT
+        });
+
     console.log(burger)
     if (!burger) {
         res.redirect("/admin/burgers")
@@ -30,7 +36,8 @@ exports.renderEditBurgerAdmin = async (req, res) => {
 
     res.render("pages/admin/burgers/edit.ejs", {
         title : "Editar hamburguesa",
-        burger : burger
+        burger : burger,
+        averageRating : parseFloat(averageRatingRS[0].averagerating).toFixed(2)
     })
 }
 

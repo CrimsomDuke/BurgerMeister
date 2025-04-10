@@ -34,10 +34,15 @@ exports.renderEditBurgerAdmin = async (req, res) => {
         return;
     }
 
+    let theAverageRating = parseFloat(averageRatingRS[0].averagerating).toFixed(1)
+    if (theAverageRating == "NaN"){
+        theAverageRating = 0;
+    }
+
     res.render("pages/admin/burgers/edit.ejs", {
         title : "Editar hamburguesa",
         burger : burger,
-        averageRating : parseFloat(averageRatingRS[0].averagerating).toFixed(2)
+        averageRating : theAverageRating
     })
 }
 
@@ -64,6 +69,9 @@ exports.renderBurgerDetailsMain = async (req, res) => {
         });
 
     let theAverageRating = parseFloat(averageRatingRS[0].averagerating).toFixed(1)
+    if (theAverageRating == "NaN"){
+        theAverageRating = 0;
+    }
 
     res.render("pages/main/burgers/burger_details.ejs", {
         title : theBurger.name,
